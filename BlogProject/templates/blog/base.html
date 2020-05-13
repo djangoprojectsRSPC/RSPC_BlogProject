@@ -1,0 +1,98 @@
+{% load blog_tags %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static "css/blog1.css" %}" >
+    <style media="screen">
+
+    .content {
+    width : 60%;
+    float : left;
+    padding: 0 0 0 30px;
+    color:#232323;
+    background:#191919;
+    font:normal 14px/18px verdana, Helvetica, sans-serif;
+    color:white;
+    text-decoration:none;
+
+
+    }
+
+    .sidebar {
+      width : 40%;
+      float : right;
+      padding: 10px;
+      background: gold;
+    }
+
+    h1{
+      text-align: center;
+      border-bottom: ipx solid #bbb;
+      padding-bottom: 10px
+    }
+
+
+    body{
+      margin:0;
+    	color:#232323;
+    	background:#191919;
+      }
+
+    #date {
+      color: yellow;
+      font-size: 24px;
+      font-style: italic;
+      font-family: monotype corsiva;
+    }
+
+    #ch {
+      color: yellow;
+      font-size: 24px;
+      font-style: italic;
+      font-family: monotype corsiva;
+      border-bottom: 2px solid red;
+    }
+
+  #pcount{
+    font-size: 40px;
+    font-weight: bold;
+    color: blue;
+  }
+
+
+    </style>
+    <title>{% block title_block %}{% endblock %}</title>
+
+  </head>
+  <body>
+    <div class="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <div class="sidebar">
+      <h2>RSPC Blog</h2>
+      <p>
+        Here you can see python updations....
+      </p>
+      <p>
+        The total no. of published posts upto today : <span id='pcount'> {% my_tag %}</span>
+      </p>
+      <h3>Latest Posts:</h3>
+      {% show_latest_posts 4%}
+
+      <h3>Most Commented Posts :</h3>
+      {% get_most_commented_posts as most_commented_posts %}
+      <ul>
+        {%for post in most_commented_posts%}
+        <li><a href="{{post.get_absolute_url}}">{{post.title}}</a></li>
+        {% endfor %}
+      </ul>
+
+    </div>
+
+  </body>
+</html>
